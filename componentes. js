@@ -1,0 +1,456 @@
+// ======================================================
+// ANIMALLOVER
+// COMPONENTES.JS
+// ------------------------------------------------------
+// Componentes reutilizáveis do sistema
+// ======================================================
+
+
+
+// ======================================================
+// CAMPO DE BUSCA
+// ======================================================
+
+function campoBusca(placeholder = "Buscar"){
+
+    return `
+
+        <div class="buscar">
+
+            <span class="lupa">🔍</span>
+
+            <input
+                type="text"
+                placeholder="${placeholder}"
+            >
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ======================================================
+// CAMPO DE TEXTO
+// ======================================================
+
+function campoTexto(
+    label,
+    id,
+    placeholder,
+    atributos = ""
+){
+
+    return `
+
+        <div class="campo">
+
+            <label>${label}</label>
+
+            <input
+                type="text"
+                id="${id}"
+                placeholder="${placeholder}"
+                ${atributos}
+            >
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ======================================================
+// CAMPO DATA
+// ======================================================
+
+function campoData(label, id){
+
+    return `
+
+        <div class="campo">
+
+            <label>${label}</label>
+
+            <input
+                type="date"
+                id="${id}"
+            >
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ======================================================
+// CAMPO SELECT
+// ======================================================
+
+function campoSelect(label, id, opcoes){
+
+    let html = `
+
+        <div class="campo">
+
+            <label>${label}</label>
+
+            <select id="${id}">
+
+    `;
+
+    opcoes.forEach(function(opcao){
+
+        html += `
+
+            <option value="${opcao}">
+                ${opcao}
+            </option>
+
+        `;
+
+    });
+
+    html += `
+
+            </select>
+
+        </div>
+
+    `;
+
+    return html;
+
+}
+
+
+
+// ======================================================
+// CAMPO TEXTO GRANDE
+// ======================================================
+
+function campoTextarea(label, id, placeholder){
+
+    return `
+
+        <div class="campo">
+
+            <label>${label}</label>
+
+            <textarea
+                id="${id}"
+                placeholder="${placeholder}"
+                rows="4"
+            ></textarea>
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ======================================================
+// FOTO DO PET
+// ======================================================
+
+function campoImagem(){
+
+    return `
+
+        <div class="foto-pet">
+
+            <label
+                for="fotoPet"
+                class="circulo-foto"
+            >
+
+                📷
+
+                <span>Enviar imagem</span>
+
+            </label>
+
+            <input
+                type="file"
+                id="fotoPet"
+                accept="image/*"
+                hidden
+            >
+
+            <p>Foto do Pet</p>
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ======================================================
+// CARD DO TUTOR
+// ======================================================
+
+function cardTutorPet(tutor){
+
+    let iniciais = tutor.nome
+        .split(" ")
+        .map(nome => nome[0])
+        .slice(0,2)
+        .join("");
+
+    return `
+
+        <div class="cliente">
+
+            <div class="avatar">
+
+                ${iniciais}
+
+            </div>
+
+            <div class="dados-cliente">
+
+                <h3>${tutor.nome}</h3>
+
+                <p>Tutor selecionado</p>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ======================================================
+// RODAPÉ NOVO PET
+// ======================================================
+
+function rodapeNovoPet(id){
+
+    return `
+
+        <div class="rodape-formulario">
+
+            <button
+                class="botao"
+                onclick="salvarPet(${id})"
+            >
+
+                Salvar
+
+            </button>
+
+            <button
+                class="botao"
+                onclick="salvarEAgendar(${id})"
+            >
+
+                Salvar e Agendar
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ======================================================
+// TÍTULO DE SEÇÃO   RESERVADAAAAAA
+// ======================================================
+
+function tituloSecao(texto){
+
+    return `
+
+        <h2 class="titulo-secao">
+
+            ${texto}
+
+        </h2>
+
+    `;
+
+}
+
+
+
+// ======================================================
+// BOTÃO FLUTUANTE
+// ======================================================
+
+function botaoNovo(funcao){
+
+    return `
+
+        <button
+            class="botao-novo"
+            onclick="${funcao}()"
+        >
+
+            +
+
+        </button>
+
+    `;
+
+}
+
+
+
+// ======================================================
+// CARD DE CLIENTE
+// ======================================================
+
+function cardCliente(id, nome, telefone){
+
+    let iniciais = nome
+        .split(" ")
+        .map(p => p[0])
+        .slice(0,2)
+        .join("");
+
+    return `
+
+        <div
+            class="cliente"
+            onclick="abrirFichaCliente(${id})"
+        >
+
+            <div class="avatar">
+
+                ${iniciais}
+
+            </div>
+
+            <div class="dados-cliente">
+
+                <h3>${nome}</h3>
+
+                <p>${telefone}</p>
+
+            </div>
+
+            <div
+                class="menu-cliente"
+                onclick="event.stopPropagation()"
+            >
+
+                ⋮
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ======================================================
+// CARD SELECIONAR TUTOR
+// ======================================================
+
+function cardSelecionarTutor(id, nome){
+
+    let iniciais = nome
+        .split(" ")
+        .map(p => p[0])
+        .slice(0,2)
+        .join("");
+
+    return `
+
+        <div
+            class="cliente"
+            onclick="abrirNovoPet(${id})"
+        >
+
+            <div class="avatar">
+
+                ${iniciais}
+
+            </div>
+
+            <div class="dados-cliente">
+
+                <h3>${nome}</h3>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ======================================================
+// MENSAGEM DE LISTA VAZIA
+// ======================================================
+
+function caixaVazia(mensagem){
+
+    return `
+
+        <div class="caixa-vazia">
+
+            <h3>📂</h3>
+
+            <p>${mensagem}</p>
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ======================================================
+// SEPARADOR
+// ======================================================
+
+function separador(){
+
+    return `
+
+        <hr class="divisor">
+
+    `;
+
+}
+
+
+
+// ======================================================
+// FUNÇÃO TEMPORÁRIA
+// ======================================================
+
+function emDesenvolvimento(nomeTela){
+
+    alert(
+
+        nomeTela +
+
+        "\n\nEm desenvolvimento."
+
+    );
+
+}
