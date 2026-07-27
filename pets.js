@@ -1,8 +1,6 @@
 // ======================================================
 // ANIMALLOVER
 // PETS.JS
-// ------------------------------------------------------
-// Cadastro e gerenciamento de pets
 // ======================================================
 
 
@@ -11,7 +9,9 @@
 // BANCO DE DADOS
 // ======================================================
 
-let pets = JSON.parse(localStorage.getItem("pets")) || [];
+let pets = JSON.parse(
+    localStorage.getItem("pets")
+) || [];
 
 
 
@@ -20,6 +20,8 @@ let pets = JSON.parse(localStorage.getItem("pets")) || [];
 // ======================================================
 
 function abrirPets(){
+
+    atualizarMenuAtivo("abrirPets");
 
     abrirTela(
 
@@ -31,17 +33,19 @@ function abrirPets(){
 
 }
 
+
+
 function telaPets(){
 
     return `
 
-        ${buscarPets()}
+        ${campoBusca("Buscar pet")}
 
         ${filtroPets()}
 
         ${listaPets()}
 
-        ${botaoNovoPet()}
+        ${botaoNovo("selecionarTutor")}
 
     `;
 
@@ -50,14 +54,8 @@ function telaPets(){
 
 
 // ======================================================
-// BUSCA E FILTRO
+// FILTRO
 // ======================================================
-
-function buscarPets(){
-
-    return campoBusca("Buscar pet");
-
-}
 
 function filtroPets(){
 
@@ -97,29 +95,44 @@ function filtroPets(){
 
 
 // ======================================================
-// LISTA DE PETS
+// LISTA
 // ======================================================
 
 function listaPets(){
 
     if(pets.length === 0){
 
-        return caixaVazia("Nenhum pet cadastrado.");
+        return caixaVazia(
+
+            "Nenhum pet cadastrado."
+
+        );
 
     }
 
     let html = "";
 
-    pets.forEach(function(pet, indice){
+    pets.forEach((pet, indice)=>{
 
-        const tutor = pet.tutorNome || pet.tutor || "Tutor não informado";
+        const tutor = pet.tutorNome || "Tutor não informado";
 
-        const especie = pet.especie || "";
-        const raca = pet.raca || "";
-        const porte = pet.porte || "";
-        const detalhe = [especie, raca, porte].filter(Boolean).join(" • ");
+        const detalhes = [
 
-        const icone = especie === "Gato" ? "🐱" : "🐶";
+            pet.especie,
+
+            pet.raca,
+
+            pet.porte
+
+        ].filter(Boolean).join(" • ");
+
+        const icone =
+
+            pet.especie === "Gato"
+
+                ? "🐱"
+
+                : "🐶";
 
         html += `
 
@@ -136,11 +149,23 @@ function listaPets(){
 
                 <div class="dados-cliente">
 
-                    <h3>${pet.nome || "Sem nome"}</h3>
+                    <h3>
 
-                    <p>${tutor}</p>
+                        ${pet.nome}
 
-                    ${detalhe ? `<small>${detalhe}</small>` : ""}
+                    </h3>
+
+                    <p>
+
+                        ${tutor}
+
+                    </p>
+
+                    ${
+                        detalhes
+                        ? `<small>${detalhes}</small>`
+                        : ""
+                    }
 
                 </div>
 
@@ -149,7 +174,11 @@ function listaPets(){
                     onclick="event.stopPropagation()"
                 >
 
-                    ⋮
+                    <span class="material-symbols-rounded">
+
+                        more_vert
+
+                    </span>
 
                 </div>
 
@@ -163,14 +192,6 @@ function listaPets(){
 
 }
 
-function botaoNovoPet(){
-
-    return botaoNovo("selecionarTutor");
-
-}
-
-
-
 // ======================================================
 // SELECIONAR TUTOR
 // ======================================================
@@ -179,7 +200,7 @@ function selecionarTutor(){
 
     abrirTela(
 
-        "Pets > Selecione o Tutor",
+        "Selecione o Tutor",
 
         telaSelecionarTutor()
 
@@ -191,19 +212,21 @@ function telaSelecionarTutor(){
 
     let html = `
 
-        ${campoBusca("Ex: nome, pet, celular")}
+        ${campoBusca("Buscar tutor")}
 
     `;
 
     if(clientes.length === 0){
 
-        html += caixaVazia("Nenhum cliente cadastrado.");
+        html += caixaVazia(
+            "Nenhum cliente cadastrado."
+        );
 
         return html;
 
     }
 
-    clientes.forEach(function(cliente, indice){
+    clientes.forEach((cliente, indice)=>{
 
         html += cardSelecionarTutor(
 
@@ -237,13 +260,17 @@ function abrirNovoPet(idTutor){
 
 }
 
+
+
 function telaNovoPet(idTutor){
 
     const tutor = clientes[idTutor];
 
     if(!tutor){
 
-        return caixaVazia("Tutor não encontrado.");
+        return caixaVazia(
+            "Tutor não encontrado."
+        );
 
     }
 
@@ -253,61 +280,71 @@ function telaNovoPet(idTutor){
 
         <div class="conteudo-formulario">
 
-            ${separador()}
-
             ${campoImagem()}
 
+            ${tituloSecao("Dados do Pet")}
+
             ${campoTexto(
-                "Nome do Pet",
+                "Nome",
                 "nomePet",
                 "Digite o nome do pet"
             )}
 
             ${campoData(
-                "Data de Nascimento",
+                "Data de nascimento",
                 "dataNascimento"
-            )}
-
-            ${campoSelect(
-                "Gênero",
-                "generoPet",
-                ["Macho", "Fêmea"]
             )}
 
             ${campoSelect(
                 "Espécie",
                 "especiePet",
-                ["Cão", "Gato"]
+                ["Cão","Gato"]
             )}
 
             ${campoTexto(
                 "Raça",
                 "racaPet",
-                "Ex: Shih-tzu"
+                "Ex.: Shih-tzu"
+            )}
+
+            ${campoSelect(
+                "Sexo",
+                "generoPet",
+                ["Macho","Fêmea"]
             )}
 
             ${campoSelect(
                 "Porte",
                 "portePet",
-                ["Mini", "Pequeno", "Médio", "Grande", "Gigante"]
+                [
+                    "Mini",
+                    "Pequeno",
+                    "Médio",
+                    "Grande",
+                    "Gigante"
+                ]
             )}
 
             ${campoSelect(
                 "Comportamento",
                 "comportamentoPet",
-                ["Dócil", "Agitado", "Agressivo"]
+                [
+                    "Dócil",
+                    "Agitado",
+                    "Agressivo"
+                ]
             )}
 
             ${campoTextarea(
-                "Notas Internas",
+                "Observações",
                 "notasPet",
-                "Digite observações"
+                "Digite observações internas"
             )}
 
             ${campoTextarea(
                 "Restrições",
                 "restricoesPet",
-                "Digite restrições ou recomendações"
+                "Alergias, medicamentos, recomendações..."
             )}
 
         </div>
@@ -317,8 +354,6 @@ function telaNovoPet(idTutor){
     `;
 
 }
-
-
 
 // ======================================================
 // SALVAR PET
@@ -331,46 +366,42 @@ async function salvarPet(idTutor){
     if(!tutor){
 
         alert("Tutor não encontrado.");
-
         return;
 
     }
 
     const nome = document.getElementById("nomePet").value.trim();
     const dataNascimento = document.getElementById("dataNascimento").value;
-    const genero = document.getElementById("generoPet").value;
     const especie = document.getElementById("especiePet").value;
+    const genero = document.getElementById("generoPet").value;
     const raca = document.getElementById("racaPet").value.trim();
     const porte = document.getElementById("portePet").value;
     const comportamento = document.getElementById("comportamentoPet").value;
     const notas = document.getElementById("notasPet").value.trim();
     const restricoes = document.getElementById("restricoesPet").value.trim();
 
-    const fotoInput = document.getElementById("fotoPet");
-    const arquivoFoto = fotoInput && fotoInput.files ? fotoInput.files[0] : null;
-
     if(nome === ""){
 
         alert("Informe o nome do pet.");
-
         return;
 
     }
 
     let foto = "";
 
-    if(arquivoFoto){
+    const fotoInput = document.getElementById("fotoPet");
+
+    if(fotoInput && fotoInput.files.length > 0){
 
         try{
 
-            foto = await arquivoParaBase64(arquivoFoto);
+            foto = await arquivoParaBase64(
+                fotoInput.files[0]
+            );
 
-        }
+        }catch{
 
-        catch{
-
-            alert("Não foi possível carregar a foto.");
-
+            alert("Erro ao carregar a foto.");
             return;
 
         }
@@ -379,37 +410,76 @@ async function salvarPet(idTutor){
 
     const pet = {
 
-        id: Date.now(),
-        tutorId: idTutor,
-        tutorNome: tutor.nome,
+        id:Date.now(),
+
+        tutorId:idTutor,
+
+        tutorNome:tutor.nome,
+
         nome,
+
         dataNascimento,
-        genero,
+
         especie,
+
+        genero,
+
         raca,
+
         porte,
+
         comportamento,
+
         notas,
+
         restricoes,
+
         foto,
-        status: "Ativo"
+
+        status:"Ativo",
+
+        criadoEm:new Date().toISOString()
 
     };
 
     pets.push(pet);
 
+    if(!tutor.pets){
+
+        tutor.pets = [];
+
+    }
+
+    tutor.pets.push(pet.id);
+
     localStorage.setItem(
         "pets",
         JSON.stringify(pets)
     );
-   alert("Pet cadastrado com sucesso!"); 
+
+    localStorage.setItem(
+        "clientes",
+        JSON.stringify(clientes)
+    );
+
+    alert("Pet cadastrado com sucesso!");
+
     abrirPets();
 
 }
 
-function salvarEAgendar(idTutor){
 
-    salvarPet(idTutor);
+
+// ======================================================
+// SALVAR E AGENDAR
+// ======================================================
+
+async function salvarEAgendar(idTutor){
+
+    await salvarPet(idTutor);
+
+    // Futuramente:
+    // abrirNovoAgendamento();
 
 }
 
@@ -426,12 +496,23 @@ function abrirFichaPet(id){
     if(!pet){
 
         alert("Pet não encontrado.");
-
         return;
 
     }
 
-    alert("Abrindo ficha de " + pet.nome);
+    alert(
+
+`Nome: ${pet.nome}
+
+Tutor: ${pet.tutorNome}
+
+Espécie: ${pet.especie}
+
+Raça: ${pet.raca}
+
+Porte: ${pet.porte}`
+
+    );
 
 }
 
@@ -443,19 +524,19 @@ function abrirFichaPet(id){
 
 function arquivoParaBase64(arquivo){
 
-    return new Promise(function(resolve, reject){
+    return new Promise((resolve,reject)=>{
 
         const leitor = new FileReader();
 
-        leitor.onload = function(){
+        leitor.onload = ()=>{
 
             resolve(leitor.result);
 
         };
 
-        leitor.onerror = function(){
+        leitor.onerror = ()=>{
 
-            reject(new Error("Falha ao ler o arquivo."));
+            reject();
 
         };
 
@@ -465,9 +546,23 @@ function arquivoParaBase64(arquivo){
 
 }
 
+
+
+// ======================================================
+// LIMPAR PETS
+// ======================================================
+
 function limparPets(){
 
-    if(!confirm("Deseja realmente apagar todos os pets?")){
+    if(
+
+        !confirm(
+
+            "Deseja apagar todos os pets?"
+
+        )
+
+    ){
 
         return;
 
@@ -476,6 +571,20 @@ function limparPets(){
     localStorage.removeItem("pets");
 
     pets = [];
+
+    clientes.forEach(cliente=>{
+
+        cliente.pets = [];
+
+    });
+
+    localStorage.setItem(
+
+        "clientes",
+
+        JSON.stringify(clientes)
+
+    );
 
     abrirPets();
 
