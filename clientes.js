@@ -1,18 +1,16 @@
 // ======================================================
 // ANIMALLOVER
 // CLIENTES.JS
-// ------------------------------------------------------
-// Cadastro e gerenciamento de clientes
 // ======================================================
 
 
-
 // ======================================================
-// BANCO DE DADOS LOCAL
+// BANCO DE DADOS
 // ======================================================
 
-let clientes = JSON.parse(localStorage.getItem("clientes")) || [];
-
+let clientes = JSON.parse(
+    localStorage.getItem("clientes")
+) || [];
 
 
 // ======================================================
@@ -24,13 +22,13 @@ function abrirCadastro(){
     mostrarPainel("Cadastro",[
 
         {
-            icone:"👤",
+            icone:"<span class='material-symbols-rounded'>groups</span>",
             nome:"Clientes",
             funcao:"abrirClientes"
         },
 
         {
-            icone:"🐶",
+            icone:"<span class='material-symbols-rounded'>pets</span>",
             nome:"Pets",
             funcao:"abrirPets"
         }
@@ -40,12 +38,13 @@ function abrirCadastro(){
 }
 
 
-
 // ======================================================
 // CLIENTES
 // ======================================================
 
 function abrirClientes(){
+
+    atualizarMenuAtivo("abrirClientes");
 
     abrirTela(
 
@@ -56,6 +55,7 @@ function abrirClientes(){
     );
 
 }
+
 
 function telaClientes(){
 
@@ -74,9 +74,8 @@ function telaClientes(){
 }
 
 
-
 // ======================================================
-// FILTRO
+// FILTROS
 // ======================================================
 
 function filtroClientes(){
@@ -89,7 +88,7 @@ function filtroClientes(){
 
                 <input
                     type="radio"
-                    name="status"
+                    name="statusCliente"
                     checked
                 >
 
@@ -101,7 +100,7 @@ function filtroClientes(){
 
                 <input
                     type="radio"
-                    name="status"
+                    name="statusCliente"
                 >
 
                 Inativos
@@ -115,22 +114,25 @@ function filtroClientes(){
 }
 
 
-
 // ======================================================
-// LISTA DE CLIENTES
+// LISTA
 // ======================================================
 
 function listaClientes(){
 
     if(clientes.length === 0){
 
-        return caixaVazia("Nenhum cliente cadastrado.");
+        return caixaVazia(
+
+            "Nenhum cliente cadastrado."
+
+        );
 
     }
 
     let html = "";
 
-    clientes.forEach(function(cliente, indice){
+    clientes.forEach((cliente, indice)=>{
 
         html += cardCliente(
 
@@ -148,8 +150,6 @@ function listaClientes(){
 
 }
 
-
-
 // ======================================================
 // NOVO CLIENTE
 // ======================================================
@@ -166,14 +166,17 @@ function abrirNovoCliente(){
 
 }
 
+
 function telaNovoCliente(){
 
     return `
 
         <div class="formulario">
 
+            ${tituloSecao("Dados do Tutor")}
+
             ${campoTexto(
-                "Nome",
+                "Nome completo",
                 "nomeCliente",
                 "Digite o nome completo"
             )}
@@ -181,13 +184,15 @@ function telaNovoCliente(){
             ${campoTexto(
                 "Celular",
                 "celularCliente",
-                "(21) 99999-9999"
+                "(21) 99999-9999",
+                "tel"
             )}
 
             ${campoTexto(
                 "Telefone adicional",
                 "telefoneCliente",
-                "(21) 99999-9999"
+                "(21) 99999-9999",
+                "tel"
             )}
 
             ${campoTexto(
@@ -199,22 +204,26 @@ function telaNovoCliente(){
             ${campoTexto(
                 "E-mail",
                 "emailCliente",
-                "email@exemplo.com"
+                "email@exemplo.com",
+                "email"
             )}
 
             ${separador()}
+
+            ${tituloSecao("Endereço")}
 
             ${campoTexto(
                 "CEP",
                 "cep",
                 "00000-000",
+                "text",
                 'onblur="buscarCEP()"'
             )}
 
             ${campoTexto(
-                "Endereço",
+                "Rua",
                 "rua",
-                "Ex: Av. Brasil, 123"
+                "Nome da rua"
             )}
 
             ${campoTexto(
@@ -226,19 +235,19 @@ function telaNovoCliente(){
             ${campoTexto(
                 "Complemento",
                 "complemento",
-                "Apartamento, bloco, etc."
+                "Apartamento, bloco..."
             )}
 
             ${campoTexto(
                 "Bairro",
                 "bairro",
-                "Digite o bairro"
+                "Bairro"
             )}
 
             ${campoTexto(
                 "Cidade",
                 "cidade",
-                "Digite a cidade"
+                "Cidade"
             )}
 
             ${campoTexto(
@@ -247,35 +256,10 @@ function telaNovoCliente(){
                 "UF"
             )}
 
-            ${separador()}
-
-            ${campoTextarea(
-                "Observações",
-                "observacoes",
-                "Ex: Cliente prefere contato por WhatsApp"
+            ${botao(
+                "Salvar Cliente",
+                "salvarCliente()"
             )}
-
-            ${campoSelect(
-                "Como conheceu a Animallover",
-                "origem",
-                [
-                    "Instagram",
-                    "Facebook",
-                    "Google",
-                    "WhatsApp",
-                    "Indicação",
-                    "Outro"
-                ]
-            )}
-
-            <button
-                class="botao"
-                onclick="salvarCliente()"
-            >
-
-                Salvar
-
-            </button>
 
         </div>
 
@@ -290,37 +274,22 @@ function telaNovoCliente(){
 function salvarCliente(){
 
     const nome = document.getElementById("nomeCliente").value.trim();
-
     const celular = document.getElementById("celularCliente").value.trim();
-
     const telefone = document.getElementById("telefoneCliente").value.trim();
-
     const cpf = document.getElementById("cpfCliente").value.trim();
-
     const email = document.getElementById("emailCliente").value.trim();
 
     const cep = document.getElementById("cep").value.trim();
-
     const rua = document.getElementById("rua").value.trim();
-
     const numero = document.getElementById("numero").value.trim();
-
     const complemento = document.getElementById("complemento").value.trim();
-
     const bairro = document.getElementById("bairro").value.trim();
-
     const cidade = document.getElementById("cidade").value.trim();
-
     const estado = document.getElementById("estado").value.trim();
-
-    const observacoes = document.getElementById("observacoes").value.trim();
-
-    const origem = document.getElementById("origem").value;
 
     if(nome === ""){
 
         alert("Informe o nome do cliente.");
-
         return;
 
     }
@@ -328,22 +297,9 @@ function salvarCliente(){
     if(celular === ""){
 
         alert("Informe o celular do cliente.");
-
         return;
 
     }
-
-const existe = clientes.some(cliente =>
-    cliente.cpf === cpf && cpf !== ""
-);
-
-if(existe){
-
-    alert("Já existe um cliente cadastrado com esse CPF.");
-
-    return;
-
-}
 
     const cliente = {
 
@@ -352,15 +308,22 @@ if(existe){
         telefone,
         cpf,
         email,
-        cep,
-        rua,
-        numero,
-        complemento,
-        bairro,
-        cidade,
-        estado,
-        observacoes,
-        origem
+
+        endereco:{
+
+            cep,
+            rua,
+            numero,
+            complemento,
+            bairro,
+            cidade,
+            estado
+
+        },
+
+        ativo:true,
+        pets:[],
+        criadoEm:new Date().toISOString()
 
     };
 
@@ -373,7 +336,7 @@ if(existe){
         JSON.stringify(clientes)
 
     );
-    alert("Cliente cadastrado com sucesso!");
+
     abrirClientes();
 
 }
@@ -386,17 +349,19 @@ if(existe){
 
 function abrirFichaCliente(id){
 
+    const cliente = clientes[id];
+
     alert(
 
-        "Abrindo ficha de " +
+        `Cliente: ${cliente.nome}
 
-        clientes[id].nome
+Celular: ${cliente.celular}
+
+Pets cadastrados: ${cliente.pets.length}`
 
     );
 
 }
-
-
 
 // ======================================================
 // BUSCAR CEP
@@ -407,24 +372,16 @@ async function buscarCEP(){
     const cep = document
         .getElementById("cep")
         .value
-        .replace(/\D/g,"");
+        .replace(/\D/g, "");
 
     if(cep.length !== 8){
-
         return;
-
     }
 
     try{
 
         const resposta = await fetch(
-
-            "https://viacep.com.br/ws/" +
-
-            cep +
-
-            "/json/"
-
+            `https://viacep.com.br/ws/${cep}/json/`
         );
 
         const dados = await resposta.json();
@@ -442,17 +399,14 @@ async function buscarCEP(){
         document.getElementById("cidade").value = dados.localidade;
         document.getElementById("estado").value = dados.uf;
 
-    }
+    }catch(error){
 
-    catch{
-
+        console.error(error);
         alert("Erro ao consultar o CEP.");
 
     }
 
 }
-
-
 
 // ======================================================
 // LIMPAR CLIENTES
@@ -460,7 +414,15 @@ async function buscarCEP(){
 
 function limparClientes(){
 
-    if(!confirm("Deseja realmente apagar todos os clientes?")){
+    if(
+
+        !confirm(
+
+            "Deseja realmente apagar todos os clientes?"
+
+        )
+
+    ){
 
         return;
 
