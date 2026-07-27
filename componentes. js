@@ -17,7 +17,11 @@ function campoBusca(placeholder = "Buscar"){
 
         <div class="buscar">
 
-            <span class="lupa">🔍</span>
+            <span class="material-symbols-rounded lupa">
+
+                search
+
+            </span>
 
             <input
                 type="text"
@@ -40,6 +44,7 @@ function campoTexto(
     label,
     id,
     placeholder,
+    tipo = "text",
     atributos = ""
 ){
 
@@ -47,10 +52,14 @@ function campoTexto(
 
         <div class="campo">
 
-            <label>${label}</label>
+            <label for="${id}">
+
+                ${label}
+
+            </label>
 
             <input
-                type="text"
+                type="${tipo}"
                 id="${id}"
                 placeholder="${placeholder}"
                 ${atributos}
@@ -74,7 +83,11 @@ function campoData(label, id){
 
         <div class="campo">
 
-            <label>${label}</label>
+            <label for="${id}">
+
+                ${label}
+
+            </label>
 
             <input
                 type="date"
@@ -99,18 +112,30 @@ function campoSelect(label, id, opcoes){
 
         <div class="campo">
 
-            <label>${label}</label>
+            <label for="${id}">
+
+                ${label}
+
+            </label>
 
             <select id="${id}">
 
+                <option value="">
+
+                    Selecione...
+
+                </option>
+
     `;
 
-    opcoes.forEach(function(opcao){
+    opcoes.forEach(opcao => {
 
         html += `
 
             <option value="${opcao}">
+
                 ${opcao}
+
             </option>
 
         `;
@@ -141,7 +166,11 @@ function campoTextarea(label, id, placeholder){
 
         <div class="campo">
 
-            <label>${label}</label>
+            <label for="${id}">
+
+                ${label}
+
+            </label>
 
             <textarea
                 id="${id}"
@@ -154,8 +183,6 @@ function campoTextarea(label, id, placeholder){
     `;
 
 }
-
-
 
 // ======================================================
 // FOTO DO PET
@@ -172,9 +199,17 @@ function campoImagem(){
                 class="circulo-foto"
             >
 
-                📷
+                <span class="material-symbols-rounded">
 
-                <span>Enviar imagem</span>
+                    photo_camera
+
+                </span>
+
+                <span>
+
+                    Enviar imagem
+
+                </span>
 
             </label>
 
@@ -185,7 +220,11 @@ function campoImagem(){
                 hidden
             >
 
-            <p>Foto do Pet</p>
+            <p>
+
+                Foto do Pet
+
+            </p>
 
         </div>
 
@@ -201,11 +240,12 @@ function campoImagem(){
 
 function cardTutorPet(tutor){
 
-    let iniciais = tutor.nome
+    const iniciais = tutor.nome
         .split(" ")
         .map(nome => nome[0])
         .slice(0,2)
-        .join("");
+        .join("")
+        .toUpperCase();
 
     return `
 
@@ -219,9 +259,17 @@ function cardTutorPet(tutor){
 
             <div class="dados-cliente">
 
-                <h3>${tutor.nome}</h3>
+                <h3>
 
-                <p>Tutor selecionado</p>
+                    ${tutor.nome}
+
+                </h3>
+
+                <p>
+
+                    Tutor selecionado
+
+                </p>
 
             </div>
 
@@ -270,7 +318,7 @@ function rodapeNovoPet(id){
 
 
 // ======================================================
-// TÍTULO DE SEÇÃO   RESERVADAAAAAA
+// TÍTULO DA SEÇÃO
 // ======================================================
 
 function tituloSecao(texto){
@@ -300,9 +348,14 @@ function botaoNovo(funcao){
         <button
             class="botao-novo"
             onclick="${funcao}()"
+            aria-label="Novo"
         >
 
-            +
+            <span class="material-symbols-rounded">
+
+                add
+
+            </span>
 
         </button>
 
@@ -310,19 +363,18 @@ function botaoNovo(funcao){
 
 }
 
-
-
 // ======================================================
 // CARD DE CLIENTE
 // ======================================================
 
 function cardCliente(id, nome, telefone){
 
-    let iniciais = nome
+    const iniciais = nome
         .split(" ")
-        .map(p => p[0])
+        .map(parte => parte[0])
         .slice(0,2)
-        .join("");
+        .join("")
+        .toUpperCase();
 
     return `
 
@@ -339,9 +391,17 @@ function cardCliente(id, nome, telefone){
 
             <div class="dados-cliente">
 
-                <h3>${nome}</h3>
+                <h3>
 
-                <p>${telefone}</p>
+                    ${nome}
+
+                </h3>
+
+                <p>
+
+                    ${telefone}
+
+                </p>
 
             </div>
 
@@ -350,7 +410,11 @@ function cardCliente(id, nome, telefone){
                 onclick="event.stopPropagation()"
             >
 
-                ⋮
+                <span class="material-symbols-rounded">
+
+                    more_vert
+
+                </span>
 
             </div>
 
@@ -368,11 +432,12 @@ function cardCliente(id, nome, telefone){
 
 function cardSelecionarTutor(id, nome){
 
-    let iniciais = nome
+    const iniciais = nome
         .split(" ")
-        .map(p => p[0])
+        .map(parte => parte[0])
         .slice(0,2)
-        .join("");
+        .join("")
+        .toUpperCase();
 
     return `
 
@@ -389,7 +454,11 @@ function cardSelecionarTutor(id, nome){
 
             <div class="dados-cliente">
 
-                <h3>${nome}</h3>
+                <h3>
+
+                    ${nome}
+
+                </h3>
 
             </div>
 
@@ -411,9 +480,23 @@ function caixaVazia(mensagem){
 
         <div class="caixa-vazia">
 
-            <h3>📂</h3>
+            <span class="material-symbols-rounded">
 
-            <p>${mensagem}</p>
+                inventory_2
+
+            </span>
+
+            <h3>
+
+                Nenhum registro
+
+            </h3>
+
+            <p>
+
+                ${mensagem}
+
+            </p>
 
         </div>
 
@@ -440,16 +523,43 @@ function separador(){
 
 
 // ======================================================
+// BOTÃO PADRÃO
+// ======================================================
+
+function botao(texto, funcao, classe = "botao"){
+
+    return `
+
+        <button
+            class="${classe}"
+            onclick="${funcao}"
+        >
+
+            ${texto}
+
+        </button>
+
+    `;
+
+}
+
+
+
+// ======================================================
 // FUNÇÃO TEMPORÁRIA
 // ======================================================
 
 function emDesenvolvimento(nomeTela){
 
+    console.warn(
+
+        `${nomeTela} ainda está em desenvolvimento.`
+
+    );
+
     alert(
 
-        nomeTela +
-
-        "\n\nEm desenvolvimento."
+        `${nomeTela}\n\nEsta funcionalidade estará disponível em breve.`
 
     );
 
