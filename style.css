@@ -3,8 +3,9 @@
    STYLE.CSS
 ====================================================== */
 
+
 /* ======================================================
-   CORES DO SISTEMA
+   VARIÁVEIS
 ====================================================== */
 
 :root{
@@ -21,6 +22,8 @@
 
     --cor-laranja:#ff9800;
 
+    --sombra:0 6px 14px rgba(0,0,0,.20);
+
 }
 
 
@@ -29,9 +32,17 @@
 ====================================================== */
 
 *{
+
     margin:0;
     padding:0;
     box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
 }
 
 body{
@@ -44,18 +55,25 @@ body{
 
 }
 
+
 /* ======================================================
-   LINKS E BOTÕES
+   LINKS
 ====================================================== */
 
 a{
-    text-decoration:none;
+
     color:inherit;
+
+    text-decoration:none;
+
 }
 
 button{
+
     font-family:inherit;
+
 }
+
 
 /* ======================================================
    CABEÇALHO PRINCIPAL
@@ -64,7 +82,9 @@ button{
 .topo{
 
     position:sticky;
+
     top:0;
+
     z-index:100;
 
     height:80px;
@@ -72,7 +92,9 @@ button{
     background:var(--cor-principal);
 
     display:grid;
+
     grid-template-columns:60px 1fr 60px;
+
     align-items:center;
 
     padding:0 15px;
@@ -84,32 +106,47 @@ button{
 .menu{
 
     font-size:30px;
-    cursor:pointer;
+
     text-align:center;
+
+    cursor:pointer;
 
 }
 
 .titulo{
 
     text-align:center;
+
     font-size:18px;
+
     font-weight:bold;
 
 }
 
 .notificacao{
 
-    font-size:28px;
-    text-align:center;
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
     cursor:pointer;
 
 }
 
+
 /* ======================================================
-   CABEÇALHO DE FORMULÁRIO
+   CABEÇALHO DOS FORMULÁRIOS
 ====================================================== */
 
 .cabecalho-formulario{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
 
     display:flex;
 
@@ -117,15 +154,9 @@ button{
 
     align-items:center;
 
-    background:#16c8c1;
-
     padding:12px 15px;
 
-    position:sticky;
-
-    top:0;
-
-    z-index:100;
+    background:var(--cor-principal);
 
     box-shadow:0 2px 8px rgba(0,0,0,.10);
 
@@ -141,7 +172,7 @@ button{
 
     border-radius:12px;
 
-    background:#12b8b2;
+    background:var(--cor-principal-escura);
 
     color:white;
 
@@ -157,9 +188,8 @@ button{
 
     font-weight:bold;
 
-    color:white;
-
 }
+
 
 /* ======================================================
    MENU LATERAL
@@ -177,25 +207,25 @@ button{
 
     height:100vh;
 
-    background:#16c8c1;
+    background:var(--cor-principal);
 
-    transition:.3s;
+    transition:.30s;
+
+    overflow:hidden;
 
     z-index:1000;
-    
-    overflow:hidden;
 
 }
 
 .fechar{
 
-    text-align:center;
+    margin-top:20px;
 
-    color:white;
+    text-align:center;
 
     font-size:28px;
 
-    margin-top:20px;
+    color:white;
 
     cursor:pointer;
 
@@ -209,8 +239,6 @@ button{
 
     flex-direction:column;
 
-    gap:0px;
-
     margin-top:30px;
 
 }
@@ -223,47 +251,84 @@ button{
 
     align-items:center;
 
-    color:white;
+    padding:8px 0;
 
     cursor:pointer;
 
-    padding:8px 0;
+    color:white;
 
 }
 
-.lista-menu li span{
+.lista-menu li span:last-child{
+
+    margin-top:2px;
 
     font-size:13px;
-
-    margin-top:8px;
 
     text-align:center;
 
 }
 
+
 /* ======================================================
-   ÍCONES DO MENU
+   ÍCONES
 ====================================================== */
 
 .icone-menu{
 
-    font-size:30px;
+    width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border:2px solid white;
+
+    border-radius:50%;
+
+    margin-bottom:2px;
+
+    font-size:26px;
 
     color:white;
 
-    margin-bottom:8px;
+    transition:.30s;
 
 }
+
+
+/* Hover */
 
 .lista-menu li:hover .icone-menu{
 
     background:white;
 
-    color:#16c8c1;
+    color:var(--cor-principal);
 
 }
 
 .lista-menu li:hover span:last-child{
+
+    font-weight:bold;
+
+}
+
+
+/* Item ativo */
+
+.lista-menu li.ativo .icone-menu{
+
+    background:white;
+
+    color:var(--cor-principal);
+
+}
+
+.lista-menu li.ativo span:last-child{
 
     font-weight:bold;
 
@@ -283,35 +348,45 @@ button{
 
     width:250px;
 
-    height:100%;
+    height:100vh;
 
     background:#444;
 
-    transition:.3s;
+    overflow:auto;
+
+    transition:.30s;
 
     z-index:999;
-
-    overflow:auto;
 
 }
 
 .titulo-painel{
 
-    color:white;
     padding:20px;
-    margin:0;
+
+    color:white;
+
+    font-size:20px;
 
 }
 
 .item-painel{
 
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
     padding:18px 20px;
 
     color:white;
 
+    cursor:pointer;
+
     border-bottom:1px solid #555;
 
-    cursor:pointer;
+    transition:.20s;
 
 }
 
@@ -321,15 +396,19 @@ button{
 
 }
 
+
 /* ======================================================
    CONTEÚDO
 ====================================================== */
 
 #conteudo{
 
+    min-height:100vh;
+
     padding-bottom:90px;
 
 }
+
 
 /* ======================================================
    HOME
@@ -338,7 +417,9 @@ button{
 .cards{
 
     display:grid;
+
     grid-template-columns:repeat(3,1fr);
+
     gap:15px;
 
     padding:15px;
@@ -347,31 +428,43 @@ button{
 
 .card{
 
-    background:#424242;
+    background:var(--cor-card);
+
+    border:none;
 
     border-radius:22px;
 
     padding:22px 12px;
 
-    text-align:center;
-
     cursor:pointer;
 
-    border:none;
+    text-align:center;
 
-    box-shadow:0 6px 14px rgba(0,0,0,.20);
+    box-shadow:var(--sombra);
 
-    transition:.25s;
+    transition:.20s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.card:active{
+
+    transform:scale(.97);
 
 }
 
 .card h2{
 
-    font-size:38px;
+    margin-bottom:18px;
 
     color:white;
 
-    margin-bottom:18px;
+    font-size:38px;
 
 }
 
@@ -389,12 +482,6 @@ button{
 
 }
 
-.card:active{
-
-    transform:scale(.97);
-
-}
-
 
 /* ======================================================
    BANNER
@@ -406,31 +493,15 @@ button{
 
     height:180px;
 
-    background:#424242;
+    background:var(--cor-card);
 
     border-radius:20px;
 
     overflow:hidden;
 
-    box-shadow:0 6px 14px rgba(0,0,0,.20);
+    box-shadow:var(--sombra);
 
 }
-
-.banner h2{
-
-    margin-bottom:10px;
-
-}
-
-.banner p{
-
-    color:#666;
-
-}
-
-/* ======================================================
-   IMAGEM DO BANNER
-====================================================== */
 
 .imagem-banner{
 
@@ -442,15 +513,11 @@ button{
 
 }
 
-/* ======================================================
-   BANNER SEM IMAGEM
-====================================================== */
-
 .banner-vazio{
 
     width:100%;
 
-    height:180px;
+    height:100%;
 
     display:flex;
 
@@ -460,9 +527,9 @@ button{
 
     align-items:center;
 
-    color:white;
-
     cursor:pointer;
+
+    color:white;
 
 }
 
@@ -481,10 +548,8 @@ button{
 }
 
 
-
-
 /* ======================================================
-   SEÇÕES
+   SEÇÕES DA HOME
 ====================================================== */
 
 .agendamentos,
@@ -507,32 +572,24 @@ button{
 
 }
 
-/* ======================================================
-   CAIXAS
-====================================================== */
-
 .caixa-agendamento,
 .caixa-pacote,
 .caixa-pagar,
 .caixa-receber{
 
-    background:#474747;
-
-    border-radius:18px;
-
     padding:20px;
 
     text-align:center;
 
-    color:#666;
+    background:#474747;
 
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
+    border-radius:18px;
+
+    color:#888;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.15);
 
 }
-
-/* ======================================================
-   BOTÕES DAS SEÇÕES
-====================================================== */
 
 .botao-agendamento,
 .botao-pacote,
@@ -541,19 +598,30 @@ button{
 
     margin-top:12px;
 
-    background:#16c8c1;
-
-    color:white;
+    padding:15px;
 
     border-radius:15px;
 
-    padding:15px;
+    background:var(--cor-principal);
+
+    color:white;
+
+    font-weight:bold;
 
     text-align:center;
 
     cursor:pointer;
 
-    font-weight:bold;
+    transition:.20s;
+
+}
+
+.botao-agendamento:active,
+.botao-pacote:active,
+.botao-pagar:active,
+.botao-receber:active{
+
+    transform:scale(.98);
 
 }
 
@@ -563,7 +631,7 @@ button{
 
 .caixa{
 
-    background:white;
+    background:var(--cor-card);
 
     border-radius:18px;
 
@@ -571,7 +639,9 @@ button{
 
     margin-bottom:15px;
 
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
+    color:var(--cor-texto);
+
+    box-shadow:var(--sombra);
 
 }
 
@@ -585,7 +655,7 @@ button{
 
     border-radius:15px;
 
-    background:#16c8c1;
+    background:var(--cor-principal);
 
     color:white;
 
@@ -594,6 +664,14 @@ button{
     font-weight:bold;
 
     cursor:pointer;
+
+    transition:.20s;
+
+}
+
+.botao:hover{
+
+    background:var(--cor-principal-escura);
 
 }
 
@@ -607,9 +685,9 @@ button{
 
     border-radius:15px;
 
-    background:#e5e5e5;
+    background:#5a5a5a;
 
-    color:#444;
+    color:white;
 
     font-size:17px;
 
@@ -617,16 +695,26 @@ button{
 
     cursor:pointer;
 
+    transition:.20s;
+
+}
+
+.botao-secundario:hover{
+
+    background:#666;
+
 }
 
 .divisor{
 
-    border: none;
-    border-top: 1px solid #d5d5d5;
+    border:none;
 
-    margin: 30px 0;
+    border-top:1px solid #666;
+
+    margin:18px 0;
 
 }
+
 
 /* ======================================================
    FORMULÁRIOS
@@ -634,7 +722,7 @@ button{
 
 .formulario{
 
-    padding:18px;
+    padding:15px;
 
 }
 
@@ -644,7 +732,7 @@ button{
 
     flex-direction:column;
 
-    margin-bottom:18px;
+    margin-bottom:12px;
 
 }
 
@@ -654,7 +742,7 @@ button{
 
     font-weight:bold;
 
-    color:white;
+    color:var(--cor-texto);
 
 }
 
@@ -664,15 +752,19 @@ button{
 
     width:100%;
 
-    padding:14px;
+    padding:12px 14px;
 
-    border:1px solid #d9d9d9;
+    border:1px solid #5a5a5a;
 
     border-radius:14px;
 
+    background:var(--cor-input);
+
+    color:white;
+
     font-size:16px;
 
-    background:#474747;
+    transition:.20s;
 
 }
 
@@ -688,14 +780,24 @@ button{
 .campo select:focus,
 .campo textarea:focus{
 
-    border-color:#16c8c1;
+    border-color:var(--cor-principal);
 
     outline:none;
 
 }
 
+.titulo-secao{
+
+    font-size:18px;
+
+    margin-bottom:12px;
+
+    font-weight:bold;
+
+}
+
 /* ======================================================
-   CLIENTES
+   CLIENTES E PETS
 ====================================================== */
 
 .clientes,
@@ -705,6 +807,7 @@ button{
 
 }
 
+
 /* ======================================================
    BUSCA
 ====================================================== */
@@ -713,20 +816,20 @@ button{
 .buscar-cliente{
 
     display:flex;
+
     align-items:center;
-    gap:5px;
+
+    gap:8px;
 
     height:58px;
 
     margin:15px;
 
-    background:#424242;
+    padding:0 15px;
 
     border-radius:18px;
 
-    padding:0 9px;
-
-    box-shadow:none;
+    background:var(--cor-card);
 
 }
 
@@ -734,7 +837,7 @@ button{
 
     font-size:22px;
 
-    color:#c7c7c7;
+    color:#bdbdbd;
 
 }
 
@@ -763,9 +866,10 @@ button{
 .buscar input::placeholder,
 .buscar-cliente input::placeholder{
 
-    color:#a9a9a9;
+    color:#9d9d9d;
 
 }
+
 
 /* ======================================================
    FILTROS
@@ -777,7 +881,7 @@ button{
 
     gap:20px;
 
-    margin:18px 5px;
+    margin:18px 15px;
 
 }
 
@@ -791,9 +895,8 @@ button{
 
     cursor:pointer;
 
-    font-size:15px;
-
 }
+
 
 /* ======================================================
    LETRA
@@ -801,33 +904,26 @@ button{
 
 .letra-clientes{
 
-    margin:20px 0 10px;
+    margin:20px 15px 10px;
 
     padding:8px 15px;
 
     border-radius:10px;
 
-    background:#e8e8e8;
+    background:#505050;
+
+    color:white;
 
     font-weight:bold;
 
-    color:#666;
-
 }
 
+
 /* ======================================================
-   CARD CLIENTE / TUTOR
+   CARD DO CLIENTE
 ====================================================== */
 
 .cliente{
-
-    background:var(--cor-card);
-
-    border-radius:20px;
-
-    padding:6px;
-
-    margin:8px;
 
     display:flex;
 
@@ -835,9 +931,25 @@ button{
 
     gap:18px;
 
-    color:var(--cor-texto);
+    margin:10px 15px;
 
-    box-shadow:0 4px 12px rgba(0,0,0,.20);
+    padding:12px;
+
+    border-radius:20px;
+
+    background:var(--cor-card);
+
+    color:white;
+
+    box-shadow:var(--sombra);
+
+    transition:.20s;
+
+}
+
+.cliente:hover{
+
+    transform:translateY(-2px);
 
 }
 
@@ -849,19 +961,23 @@ button{
 
     border-radius:50%;
 
-    background:linear-gradient(135deg,#19c7c4,#149d9a);
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:linear-gradient(
+        135deg,
+        var(--cor-principal),
+        var(--cor-principal-escura)
+    );
 
     color:white;
 
     font-size:24px;
 
     font-weight:bold;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
 
     flex-shrink:0;
 
@@ -875,31 +991,30 @@ button{
 
 .dados-cliente h3{
 
-    font-size:20px;
-
-    color:white;
-
     margin-bottom:6px;
+
+    font-size:18px;
 
 }
 
 .dados-cliente p{
 
-    font-size:12px;
+    color:var(--cor-texto-secundario);
 
-    color:#b8b8b8;
+    font-size:13px;
 
 }
 
 .menu-cliente{
 
-    font-size:20px;
+    font-size:24px;
 
-    color:#888;
+    color:#9d9d9d;
 
     cursor:pointer;
 
 }
+
 
 /* ======================================================
    BOTÃO FLUTUANTE
@@ -921,15 +1036,29 @@ button{
 
     border-radius:50%;
 
-    background:#ff8c1a;
+    background:var(--cor-laranja);
 
     color:white;
 
     font-size:36px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.25);
-
     cursor:pointer;
+
+    box-shadow:var(--sombra);
+
+    transition:.20s;
+
+}
+
+.botao-novo:hover{
+
+    transform:scale(1.05);
+
+}
+
+.botao-novo:active{
+
+    transform:scale(.95);
 
 }
 
@@ -953,11 +1082,12 @@ button{
 
     margin-bottom:12px;
 
-    color:#555;
-
     font-size:17px;
 
+    color:var(--cor-texto);
+
 }
+
 
 /* ======================================================
    FOTO DO PET
@@ -981,10 +1111,6 @@ button{
 
     height:170px;
 
-    border:2px dashed #bbbbbb;
-
-    border-radius:50%;
-
     display:flex;
 
     justify-content:center;
@@ -993,17 +1119,23 @@ button{
 
     flex-direction:column;
 
-    color:#777;
+    border:2px dashed #888;
+
+    border-radius:50%;
+
+    background:var(--cor-card);
+
+    color:var(--cor-texto-secundario);
 
     cursor:pointer;
 
-    background:white;
+    transition:.20s;
 
 }
 
-.circulo-foto i{
+.circulo-foto:hover{
 
-    font-size:42px;
+    border-color:var(--cor-principal);
 
 }
 
@@ -1015,17 +1147,12 @@ button{
 
 }
 
+
 /* ======================================================
-   CARD TUTOR
+   CARD DO TUTOR
 ====================================================== */
 
 .card-tutor{
-
-    background:white;
-
-    border-radius:18px;
-
-    padding:15px;
 
     display:flex;
 
@@ -1033,11 +1160,20 @@ button{
 
     gap:15px;
 
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-
     margin-bottom:25px;
 
+    padding:15px;
+
+    background:var(--cor-card);
+
+    border-radius:18px;
+
+    color:var(--cor-texto);
+
+    box-shadow:var(--sombra);
+
 }
+
 
 /* ======================================================
    RODAPÉ FIXO
@@ -1053,15 +1189,15 @@ button{
 
     width:100%;
 
-    background:#474747;
-
-    padding:15px;
-
     display:flex;
 
     gap:12px;
 
-    box-shadow:0 -3px 12px rgba(0,0,0,.12);
+    padding:15px;
+
+    background:#474747;
+
+    box-shadow:0 -3px 12px rgba(0,0,0,.20);
 
 }
 
@@ -1071,11 +1207,12 @@ button{
 
 }
 
+
 /* ======================================================
    RESPONSIVIDADE
 ====================================================== */
 
-@media (max-width: 768px){
+@media (max-width:768px){
 
     .cards{
 
@@ -1085,11 +1222,9 @@ button{
 
 }
 
-@media (max-width: 480px){
+@media (max-width:480px){
 
     .cards{
-
-        grid-template-columns:repeat(3,1fr);
 
         gap:12px;
 
@@ -1121,6 +1256,7 @@ button{
 
 }
 
+
 /* ======================================================
    ANIMAÇÕES
 ====================================================== */
@@ -1130,22 +1266,23 @@ button{
 .botao-secundario,
 .botao-novo,
 .cliente,
-.card-tutor{
+.card-tutor,
+.item-painel{
 
-    transition:.2s;
+    transition:.20s;
 
 }
 
 .card:active,
 .botao:active,
 .botao-secundario:active,
-.botao-novo:active,
 .cliente:active,
 .card-tutor:active{
 
     transform:scale(.98);
 
 }
+
 
 /* ======================================================
    BARRA DE ROLAGEM
@@ -1159,7 +1296,7 @@ button{
 
 ::-webkit-scrollbar-thumb{
 
-    background:#16c8c1;
+    background:var(--cor-principal);
 
     border-radius:20px;
 
@@ -1167,9 +1304,10 @@ button{
 
 ::-webkit-scrollbar-track{
 
-    background:#efefef;
+    background:#2b2b2b;
 
 }
+
 
 /* ======================================================
    UTILITÁRIOS
@@ -1194,7 +1332,7 @@ button{
 .texto-centro{
 
     text-align:center;
-    color:var(--cor-texto);
+
 }
 
 .margem-topo{
@@ -1209,25 +1347,26 @@ button{
 
 }
 
+
 /* ======================================================
    ESTADO VAZIO
 ====================================================== */
 
 .caixa-vazia{
 
-    background:#424242;
+    margin:15px;
+
+    padding:25px 15px;
+
+    background:var(--cor-card);
 
     border-radius:18px;
 
-    padding:20px 10px;
+    color:var(--cor-texto);
 
     text-align:center;
 
-    color:white;
-
-    margin: 14px;
-
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
+    box-shadow:var(--sombra);
 
 }
 
@@ -1237,13 +1376,14 @@ button{
 
 }
 
+
 /* ======================================================
    EM DESENVOLVIMENTO
 ====================================================== */
 
 .desenvolvimento{
 
-    padding:40px 20px;
+    padding:50px 20px;
 
     text-align:center;
 
@@ -1257,11 +1397,12 @@ button{
 
 .desenvolvimento p{
 
-    color:#666;
+    color:var(--cor-texto-secundario);
 
-    line-height:1.5;
+    line-height:1.6;
 
 }
+
 
 /* ======================================================
    MATERIAL SYMBOLS
@@ -1269,9 +1410,9 @@ button{
 
 .material-symbols-rounded{
 
-    font-size:40px;
+    font-size:26px;
 
-    color:white;
+    user-select:none;
 
     font-variation-settings:
         'FILL' 1,
@@ -1280,6 +1421,7 @@ button{
         'opsz' 24;
 
 }
+
 
 /* ======================================================
    FIM DO ARQUIVO
