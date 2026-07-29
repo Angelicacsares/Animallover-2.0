@@ -78,10 +78,16 @@ function abrirTela(nomeTela, html){
 
     conteudo.innerHTML = html;
 
+    const botaoFiltro = document.getElementById("botaoFiltro");
+
+    if(botaoFiltro){
+        botaoFiltro.style.display =
+            nomeTela === "Calendário" ? "flex" : "none";
+    }
+
     finalizarTrocaTela();
 
 }
-
 
 // ======================================================
 // MENU LATERAL
@@ -127,13 +133,12 @@ function alternarMenu(){
 
 function abrirInicio(){
 
-    alterarTitulo("Início");
-
     atualizarMenuAtivo("abrirInicio");
 
-    conteudo.innerHTML = telaInicio();
-
-    finalizarTrocaTela();
+    abrirTela(
+        "Início",
+        telaInicio()
+    );
 
 }
 
@@ -173,7 +178,6 @@ function cardsInicio(){
                 </h2>
                 <p>Cadastrar Cliente</p>
             </div>
-
             <div class="card" onclick="abrirFinanceiro()">
                 <h2>
                     <span class="material-symbols-rounded">
