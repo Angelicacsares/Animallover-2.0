@@ -77,17 +77,40 @@
          CABEÇALHO PRINCIPAL
     ======================================================= -->
 
-    <header class="topo" id="topoPrincipal">
+   <header class="topo" id="topoPrincipal">
 
-        <div class="menu" onclick="alternarMenu()">☰</div>
+    <div class="menu" onclick="alternarMenu()">
+        ☰
+    </div>
 
-        <h2 class="titulo">Início</h2>
+    <h2 class="titulo">
+        Início
+    </h2>
 
-        <div class="notificacao">
-            <span class="material-symbols-rounded">notifications</span>
-        </div>
+    <div class="acoes-topo">
 
-    </header>
+        <button
+    class="botao-topo"
+    id="botaoFiltro"
+    onclick="abrirFiltrosAgenda()"
+    style="display:none"
+>
+            <span class="material-symbols-rounded">
+                filter_list
+            </span>
+        </button>
+
+        <button
+            class="botao-topo"
+        >
+            <span class="material-symbols-rounded">
+                notifications
+            </span>
+        </button>
+
+    </div>
+
+</header>
 
     <!-- ======================================================
          CABEÇALHO DE FORMULÁRIO
