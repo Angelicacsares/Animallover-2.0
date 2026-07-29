@@ -226,17 +226,14 @@ function telaSelecionarTutor(){
 
     }
 
-    clientes.forEach((cliente, indice)=>{
+    clientes.forEach((cliente)=>{
 
-        html += cardSelecionarTutor(
+    html += cardSelecionarTutor(
+        cliente.id,
+        cliente.nome
+    );
 
-            indice,
-
-            cliente.nome
-
-        );
-
-    });
+});
 
     return html;
 
@@ -250,10 +247,10 @@ function telaSelecionarTutor(){
 
 function abrirNovoPet(idTutor){
 
+    alert("ID recebido: " + idTutor);
+
     abrirTela(
-
         "Novo Pet",
-
         telaNovoPet(idTutor)
 
     );
@@ -264,7 +261,12 @@ function abrirNovoPet(idTutor){
 
 function telaNovoPet(idTutor){
 
-    const tutor = clientes[idTutor];
+    console.log(clientes);
+alert(JSON.stringify(clientes));
+
+    const tutor = clientes.find(
+    cliente => cliente.id == idTutor
+);
 
     if(!tutor){
 
@@ -361,7 +363,9 @@ function telaNovoPet(idTutor){
 
 async function salvarPet(idTutor){
 
-    const tutor = clientes[idTutor];
+    const tutor = clientes.find(
+    cliente => cliente.id == idTutor
+);
 
     if(!tutor){
 
@@ -412,7 +416,7 @@ async function salvarPet(idTutor){
 
         id:Date.now(),
 
-        tutorId:idTutor,
+        tutorId:tutor.id,
 
         tutorNome:tutor.nome,
 
