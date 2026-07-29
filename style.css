@@ -82,24 +82,63 @@ button{
 .topo{
 
     position:sticky;
-
     top:0;
-
     z-index:100;
-
     height:80px;
-
     background:var(--cor-principal);
 
     display:grid;
-
-    grid-template-columns:60px 1fr 60px;
+    grid-template-columns:60px 1fr auto;
 
     align-items:center;
 
     padding:0 15px;
 
     box-shadow:0 2px 8px rgba(0,0,0,.10);
+
+}
+
+.acoes-topo{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    gap:12px;
+    
+    padding-right:12px;
+
+}
+
+.botao-topo{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:transparent;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+}
+
+.botao-topo:hover{
+
+    background:rgba(255,255,255,.18);
 
 }
 
@@ -1148,6 +1187,252 @@ button{
 }
 
 
+
+/* ======================================================
+   Agendamento
+====================================================== */
+
+.card-responsavel{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    background:#4a4a4a;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    margin-bottom:20px;
+
+}
+
+.card-responsavel strong{
+
+    display:block;
+
+    font-size:18px;
+
+}
+
+.card-responsavel small{
+
+    color:#cfcfcf;
+
+}
+
+.botao-servicos{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    height:60px;
+
+    background:#4a4a4a;
+
+    border-radius:18px;
+
+    margin-bottom:20px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+}
+
+.botao-servicos:hover{
+
+    background:#565656;
+
+}
+
+.financeiro-agendamento{
+
+    margin-top:20px;
+
+}
+
+.linha-switch{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin:18px 0;
+
+    font-size:17px;
+
+}
+
+.total-agendamento{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:25px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:#148f8c;
+
+    color:white;
+
+}
+
+.total-agendamento strong{
+
+    font-size:24px;
+
+}
+
+.anexo-agendamento{
+
+    margin:20px 0;
+
+}
+
+.botao-anexo{
+
+    width:100%;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:#ff9800;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+.campo-autocomplete{
+    position:relative;
+    margin-bottom:20px;
+}
+
+.campo-autocomplete label,
+.campo-selecao label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+    color:var(--cor-texto);
+
+}
+
+.campo-autocomplete input,
+.campo-selecao input{
+
+    width:100%;
+
+    padding:12px 14px;
+
+    border:1px solid #5a5a5a;
+
+    border-radius:14px;
+
+    background:var(--cor-input);
+
+    color:white;
+
+    font-size:16px;
+
+    transition:.20s;
+
+    box-sizing:border-box;
+
+}
+
+.campo-autocomplete input:focus,
+.campo-selecao input:focus{
+
+    border-color:var(--cor-principal);
+
+    outline:none;
+
+}
+
+.lista-autocomplete{
+
+    position:absolute;
+
+    top:100%;
+
+    left:0;
+
+    right:0;
+
+    background:#444;
+
+    border-radius:12px;
+
+    margin-top:5px;
+
+    overflow:hidden;
+
+    z-index:1000;
+
+    max-height:250px;
+
+    overflow-y:auto;
+
+    display:none;
+
+}
+
+.item-autocomplete{
+
+    padding:14px;
+
+    cursor:pointer;
+
+    border-bottom:1px solid #555;
+
+}
+
+.item-autocomplete:hover{
+
+    background:#18bcbc;
+
+}
+
+.novo-autocomplete{
+
+    padding:14px;
+
+    background:#18bcbc;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
 /* ======================================================
    CARD DO TUTOR
 ====================================================== */
@@ -1420,6 +1705,598 @@ button{
         'GRAD' 0,
         'opsz' 24;
 
+}
+
+/* ======================================================
+   Calendário
+====================================================== */
+
+.cabecalho-mini-calendario{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:15px;
+}
+
+.cabecalho-mini-calendario button{
+    width:36px;
+    height:36px;
+    border:none;
+    border-radius:10px;
+    background:#16c8c1;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+
+.cabecalho-mini-calendario strong{
+    font-size:18px;
+    font-weight:600;
+}
+
+.dias-semana{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+    margin-bottom:8px;
+    text-align:center;
+    font-size:13px;
+    font-weight:600;
+    color:#888;
+}
+
+.grade-calendario{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+}
+
+.dia-calendario{
+    height:38px;
+    border:none;
+    border-radius:10px;
+    background:#3b3b3b;
+    color:white;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.dia-calendario:hover{
+    background:#16c8c1;
+}
+
+.dia-calendario.hoje{
+    background:#16c8c1;
+    font-weight:bold;
+}
+
+.dia-calendario.selecionado{
+    background:#ffffff;
+    color:#19c7c4;
+    border:2px solid #19c7c4;
+    font-weight:bold;
+}
+
+
+.status-agenda .opcao-filtro{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:10px 0;
+}
+
+.usuarios-agenda .opcao-filtro{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:10px 0;
+}
+
+.usuarios-agenda,
+.status-agenda{
+    background:var(--cor-card);
+    border-radius:25px;
+    padding:20px;
+    margin-top:20px;
+}
+
+
+/* ======================================================
+   BARRA DOS MESES
+====================================================== */
+.barra-meses{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:8px;
+    padding:12px 15px;
+    background:#3a3a3a;
+}
+
+.barra-meses button{
+    height:42px;
+    border:none;
+    border-radius:12px;
+    background:#4a4a4a;
+    color:#fff;
+    font-size:16px;
+}
+
+.mes-atual{
+    background:#19c7c4 !important;
+    color:#fff !important;
+}
+/* ======================================================
+   SEMANA
+====================================================== */
+
+.cabecalho-semana{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:6px;
+
+    padding:10px 8px;
+
+    background:#3a3a3a;
+
+    align-items:start;
+
+}
+
+.dia-semana{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    gap:6px;
+
+    color:#d7d7d7;
+
+}
+
+.dia-semana small{
+
+    font-size:12px;
+
+    line-height:1;
+
+}
+
+.dia-semana button{
+
+    width:100%;
+    
+    max-width:48px;
+    
+    aspect-ratio:1;
+
+    height:54px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:transparent;
+
+    color:#d7d7d7;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+.dia-semana.ativo button{
+
+    background:#19c7c4;
+
+    color:#ff9800;
+
+}
+
+.titulo-data{
+
+    text-align:center;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    padding:12px 15px;
+
+    background:#3a3a3a;
+
+}
+
+
+/* ======================================================
+   GRADE DIÁRIA
+====================================================== */
+
+.agenda-diaria{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.grade-dia{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.linha-agenda{
+
+    display:grid;
+
+    grid-template-columns:58px 1fr;
+
+    min-height:44px;
+
+}
+
+.hora-agenda{
+
+    background:#3a3a3a;
+
+    color:#9e9e9e;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-bottom:1px solid #555;
+
+    font-size:15px;
+
+}
+
+.agenda-semanal{
+    display:flex;
+    flex-direction:column;
+}
+
+.grade-semanal{
+    display:flex;
+    flex-direction:column;
+}
+
+.linha-semanal{
+    display:grid;
+    grid-template-columns:58px repeat(7,1fr);
+    min-height:44px;
+}
+
+.cabecalho-semanal{
+    background:#3a3a3a;
+    border-bottom:1px solid #555;
+    min-height:48px;
+}
+
+.cabecalho-semanal .hora-agenda{
+    background:#3a3a3a;
+    border-bottom:none;
+}
+
+.dia-cabecalho{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#d7d7d7;
+    font-weight:600;
+    border-left:1px solid #555;
+}
+
+.celula-dia{
+    background:#444;
+    border-left:1px solid #555;
+    border-bottom:1px solid #555;
+    min-height:44px;
+}
+
+.linha-semanal .hora-agenda{
+    background:#3a3a3a;
+    color:#9e9e9e;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-bottom:1px solid #555;
+    font-size:15px;
+}
+
+.hora-agenda.vazio{
+    background:#3a3a3a;
+}
+
+.dias-semana-grid div{
+
+    border-left:1px solid #555;
+
+    border-bottom:1px solid #555;
+
+    background:#444;
+
+}
+
+.conteudo-hora{
+
+    border-left:1px solid #555;
+
+    border-bottom:1px solid #555;
+
+    background:#444;
+
+}
+
+.titulo-calendario{
+    flex:1;
+    text-align:center;
+}
+
+.titulo-calendario h2{
+    margin:0;
+    font-size:26px;
+}
+
+.titulo-calendario small{
+    color:#bdbdbd;
+}
+
+.barra-calendario button{
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:12px;
+}
+
+.linha-horario{
+    display:flex;
+    align-items:flex-start;
+    gap:15px;
+    margin-bottom:18px;
+}
+
+.hora{
+    width:55px;
+    font-weight:bold;
+}
+
+.espaco-agenda{
+    flex:1;
+    min-height:50px;
+    border-left:2px solid #4a4a4a;
+    padding-left:15px;
+}
+
+.mini-calendario,
+.usuarios-agenda,
+.status-agenda{
+    background:#3b3b3b;
+    border-radius:18px;
+    padding:18px;
+    margin:15px;
+}
+
+.visualizacao-agenda{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:20px;
+
+}
+
+.visualizacao-agenda button{
+
+    flex:1;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#555;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+.visualizacao-agenda button.ativo{
+
+    background:var(--cor-principal);
+
+}
+
+.cabecalho-dias-semana .vazio{
+
+    border-right:1px solid #555;
+
+}
+
+.cabecalho-dias-semana div{
+
+    text-align:center;
+
+    padding:12px 0;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#d7d7d7;
+
+}
+
+/* ======================================================
+   AGENDA DIÁRIA
+====================================================== */
+
+.agenda-diaria{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+/* ======================================================
+   BOTTOM SHEET
+====================================================== */
+
+.fundo-bottom-sheet{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+
+    align-items:flex-end;
+
+    z-index:5000;
+
+    animation:fundoSheet .2s;
+}
+
+.bottom-sheet{
+
+    width:100%;
+
+    max-height:98vh;
+
+    overflow:auto;
+
+    background:#3f3f3f;
+
+    border-radius:25px 25px 0 0;
+
+    padding:20px;
+
+    animation:subirSheet .25s ease;
+
+}
+
+.barra-sheet{
+
+    width:55px;
+
+    height:6px;
+
+    background:#8c8c8c;
+
+    border-radius:20px;
+
+    margin:0 auto 20px;
+
+}
+
+@keyframes subirSheet{
+
+    from{
+
+        transform:translateY(100%);
+
+    }
+
+    to{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes fundoSheet{
+
+    from{
+
+        opacity:0;
+
+    }
+
+    to{
+
+        opacity:1;
+
+    }
+
+}
+
+/* ======================================================
+   MENSAL
+====================================================== */
+
+.agenda-mensal{
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+.cabecalho-mensal{
+
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+
+    text-align:center;
+
+    background:#3a3a3a;
+
+    padding:12px 0;
+
+    font-weight:bold;
+
+}
+
+.grade-mensal{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+}
+
+.dia-mes{
+
+    min-height:110px;
+
+    border-left:1px solid #555;
+    border-bottom:1px solid #555;
+
+    background:#444;
+
+    padding:6px;
+
+}
+
+.fora-mes{
+    color:#7a7a7a;
 }
 
 
