@@ -66,6 +66,11 @@ function telaClientes(){
         ${filtroClientes()}
 
         ${listaClientes()}
+        
+        ${botao(
+        "🗑️ Limpar Dados",
+        "limparClientes()"
+    )}
 
         ${botaoNovo("abrirNovoCliente")}
 
@@ -132,19 +137,19 @@ function listaClientes(){
 
     let html = "";
 
-    clientes.forEach((cliente, indice)=>{
+    clientes.forEach((cliente)=>{
 
-        html += cardCliente(
+    html += cardCliente(
 
-            indice,
+        cliente.id,
 
-            cliente.nome,
+        cliente.nome,
 
-            cliente.celular
+        cliente.celular
 
-        );
+    );
 
-    });
+});
 
     return html;
 
@@ -303,29 +308,33 @@ function salvarCliente(){
 
     const cliente = {
 
-        nome,
-        celular,
-        telefone,
-        cpf,
-        email,
+    id: Date.now(),
 
-        endereco:{
+    nome,
+    celular,
+    telefone,
+    cpf,
+    email,
 
-            cep,
-            rua,
-            numero,
-            complemento,
-            bairro,
-            cidade,
-            estado
+    endereco:{
 
-        },
+        cep,
+        rua,
+        numero,
+        complemento,
+        bairro,
+        cidade,
+        estado
 
-        ativo:true,
-        pets:[],
-        criadoEm:new Date().toISOString()
+    },
 
-    };
+    ativo:true,
+
+    pets:[],
+
+    criadoEm:new Date().toISOString()
+
+};
 
     clientes.push(cliente);
 
@@ -349,7 +358,14 @@ function salvarCliente(){
 
 function abrirFichaCliente(id){
 
-    const cliente = clientes[id];
+    const cliente = clientes.find(
+        c => c.id == id
+    );
+
+    if(!cliente){
+        alert("Cliente não encontrado.");
+        return;
+    }
 
     alert(
 
@@ -415,20 +431,16 @@ async function buscarCEP(){
 function limparClientes(){
 
     if(
-
         !confirm(
-
-            "Deseja realmente apagar todos os clientes?"
-
+            "Deseja realmente apagar todos os clientes, pets e agendamentos?"
         )
-
     ){
-
         return;
-
     }
 
     localStorage.removeItem("clientes");
+    localStorage.removeItem("pets");
+    localStorage.removeItem("agendamentos");
 
     clientes = [];
 
