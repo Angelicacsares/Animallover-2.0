@@ -564,3 +564,58 @@ function emDesenvolvimento(nomeTela){
     );
 
 }
+
+// ======================================================
+// BOTTOM SHEET
+// ======================================================
+
+function abrirBottomSheet(conteudo){
+
+    if(document.getElementById("bottomSheet")){
+
+        document.getElementById("bottomSheet").remove();
+
+    }
+
+    document.body.insertAdjacentHTML(
+
+        "beforeend",
+
+        `
+
+        <div
+            class="fundo-bottom-sheet"
+            id="bottomSheet"
+            onclick="fecharBottomSheet()"
+        >
+
+            <div
+                class="bottom-sheet"
+                onclick="event.stopPropagation()"
+            >
+
+                <div class="barra-sheet"></div>
+
+                ${conteudo}
+
+            </div>
+
+        </div>
+
+        `
+
+    );
+
+}
+
+function fecharBottomSheet(){
+
+    const sheet = document.getElementById("bottomSheet");
+
+    if(sheet){
+
+        sheet.remove();
+
+    }
+
+}
