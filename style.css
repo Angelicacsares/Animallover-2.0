@@ -1369,6 +1369,12 @@ button{
 
 }
 
+.campo-selecao{
+
+    margin-bottom:20px;
+
+}
+
 .campo-autocomplete input:focus,
 .campo-selecao input:focus{
 
@@ -2186,13 +2192,20 @@ button{
 
 .bottom-sheet{
 
+    position:fixed;
+    
+    max-height:90vh;
+
+    left:0;
+    right:0;
+    bottom:0;
+
     width:100%;
-
-    max-height:98vh;
-
-    overflow:auto;
+    height:100vh;
 
     background:#3f3f3f;
+
+    overflow:auto;
 
     border-radius:25px 25px 0 0;
 
@@ -2297,6 +2310,152 @@ button{
 
 .fora-mes{
     color:#7a7a7a;
+}
+
+
+
+
+
+
+
+.agenda-dia{
+    padding:15px;
+}
+
+.hora-grupo{
+    color:#fff;
+    margin-bottom:12px;
+}
+
+.card-banho{
+    display:flex;
+    align-items:center;
+    background:#474747;
+    border-radius:18px;
+    overflow:hidden;
+    position:relative;
+    margin-bottom:18px;
+}
+
+.faixa-status{
+    width:8px;
+    align-self:stretch;
+    background:#ffc928;
+}
+
+.foto-pet{
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    margin:15px;
+    object-fit:cover;
+}
+
+.dados-banho{
+    flex:1;
+}
+
+.tags{
+    display:flex;
+    gap:6px;
+    margin:6px 0;
+}
+
+.tag{
+    padding:3px 8px;
+    border-radius:6px;
+    font-size:13px;
+}
+
+.dinheiro{
+    background:#ff6666;
+    color:#fff;
+}
+
+.valor{
+    background:#d8d8d8;
+    color:#222;
+}
+
+.progresso{
+    display:flex;
+    gap:4px;
+}
+
+.progresso span{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:#ff00ff;
+}
+
+.progresso span.vazio{
+    background:transparent;
+    border:1px solid #999;
+}
+
+.menu-card{
+    margin-right:15px;
+    width:44px;
+    height:44px;
+    border:none;
+    border-radius:12px;
+    background:#3b3b3b;
+    color:#fff;
+}
+
+
+
+
+
+
+
+.semana-banho{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+    padding:10px 8px;
+    background:#3a3a3a;
+}
+
+.dia-semana-banho{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    color:#d7d7d7;
+}
+
+.dia-semana-banho small{
+    font-size:12px;
+    line-height:1;
+}
+
+.dia-semana-banho button{
+    width:100%;
+    max-width:48px;
+    aspect-ratio:1;
+    height:54px;
+    border:none;
+    border-radius:14px;
+    background:transparent;
+    color:#d7d7d7;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.dia-semana-banho.ativo button{
+    background:#19c7c4;
+    color:#fff;
+}
+
+.titulo-data.mensal{
+    text-transform:capitalize;
+}
+
+.lista-banho-vazia{
+    padding:15px;
 }
 
 
