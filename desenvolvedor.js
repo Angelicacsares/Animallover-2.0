@@ -36,9 +36,4 @@ function exportarBackup(){
 function importarBackup(){
 
     // Futuramente
-
 }
-
-
-
-Essa é a frase chat gpt: quero desenvolver
