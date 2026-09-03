@@ -112,7 +112,7 @@ function listaPets(){
 
     let html = "";
 
-    pets.forEach((pet, indice)=>{
+    pets.forEach((pet) => {
 
         const tutor = pet.tutorNome || "Tutor não informado";
 
@@ -138,7 +138,7 @@ function listaPets(){
 
             <div
                 class="cliente"
-                onclick="abrirFichaPet(${indice})"
+                onclick="abrirFichaPet('${pet.id}')"
             >
 
                 <div class="avatar">
@@ -495,15 +495,13 @@ async function salvarEAgendar(idTutor){
 
 function abrirFichaPet(id){
 
-    const pet = pets[id];
+    const pet = pets.find(p => p.id == id);
 
     if(!pet){
-
         alert("Pet não encontrado.");
         return;
-
     }
-
+    
     alert(
 
 `Nome: ${pet.nome}
