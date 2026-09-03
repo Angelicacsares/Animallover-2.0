@@ -78,12 +78,34 @@ function abrirTela(nomeTela, html){
 
     conteudo.innerHTML = html;
 
-    const botaoFiltro = document.getElementById("botaoFiltro");
+    const botaoFiltro =
+        document.getElementById("botaoFiltro");
 
-    if(botaoFiltro){
-        botaoFiltro.style.display =
-            nomeTela === "Calendário" ? "flex" : "none";
-    }
+    if(nomeTela === "Calendário"){
+
+    botaoFiltro.style.display = "flex";
+    botaoFiltro.onclick = abrirFiltrosAgenda;
+
+}
+else if(nomeTela === "Banho e Tosa"){
+
+    botaoFiltro.style.display = "flex";
+    botaoFiltro.onclick = abrirFiltroBanhoETosa;
+
+}
+else if(nomeTela === "Pacotes"){
+
+    botaoFiltro.style.display = "flex";
+    botaoFiltro.onclick = abrirFiltrosPacotes;
+
+}
+else{
+
+    botaoFiltro.style.display = "none";
+
+}
+
+    
 
     finalizarTrocaTela();
 
@@ -152,7 +174,7 @@ function cardsInicio(){
 
         <div class="cards">
 
-            <div class="card" onclick="abrirBanhoTosa()">
+            <div class="card" onclick="abrirBanhoETosa()">
                 <h2>
                     <span class="material-symbols-rounded">
                         content_cut
