@@ -1,6 +1,6 @@
 // ======================================================
 // ANIMALLOVER
-// AGENDA.JS
+// AGENDA.JSss
 // ======================================================
 
 let agendamentos = JSON.parse(
@@ -10,6 +10,8 @@ let agendamentos = JSON.parse(
 let modoCalendario = "diario";
 
 let dataSelecionada = new Date();
+
+let filtroVisualizacao = "diario";
 
 let filtrosAgenda = {
 
@@ -28,6 +30,10 @@ let filtrosAgenda = {
 };
 
 let diaSelecionado = null;
+
+let pacotes = JSON.parse(
+    localStorage.getItem("pacotes")
+) || [];
 
 // ======================================================
 // MENU
@@ -908,12 +914,12 @@ function agendaDoDia(){
 
 function abrirBanhoETosa(){
 
+    document.getElementById("botaoFiltro").style.display = "flex";
+    document.getElementById("botaoFiltro").onclick = abrirFiltroBanhoETosa;
+
     abrirTela(
-
         "Banho e Tosa",
-
         telaBanhoETosa()
-
     );
 
 }
@@ -923,14 +929,41 @@ function abrirBanhoETosa(){
 // ======================================================
 // TELA
 // ======================================================
-
 function telaBanhoETosa(){
 
     return `
 
-        ${campoBusca("Buscar agendamento")}
+        ${barraBanhoETosa()}
 
-        ${listaAgendamentos()}
+        ${
+            filtroVisualizacao === "diario"
+                ? telaBanhoDiario()
+                : telaBanhoMensal()
+        }
+
+    `;
+
+}
+
+function telaBanhoDiario(){
+
+    return `
+
+        ${barraSemanaBanho()}
+
+        <div class="titulo-data">
+
+            ${tituloDataSelecionada()}
+
+        </div>
+
+        ${campoBusca("Buscar")}
+
+        <div class="lista-banho-vazia">
+
+            ${caixaVazia("Nenhum registro")}
+
+        </div>
 
         ${botaoNovo("novoAgendamento")}
 
@@ -938,7 +971,207 @@ function telaBanhoETosa(){
 
 }
 
+function telaBanhoMensal(){
 
+    return `
+
+        <div class="titulo-data mensal">
+
+            ${dataSelecionada.toLocaleDateString("pt-BR",{
+                month:"long",
+                year:"numeric"
+            })}
+
+        </div>
+
+        ${campoBusca("Buscar")}
+
+        <div class="lista-banho-vazia">
+
+            ${caixaVazia("Nenhum registro")}
+
+        </div>
+
+        ${botaoNovo("novoAgendamento")}
+
+    `;
+
+}
+
+function barraSemanaBanho(){
+
+    const dias = ["Dom.","Seg.","Ter.","Qua.","Qui.","Sex.","Sáb."];
+
+    const base = new Date(dataSelecionada);
+    const domingo = new Date(base);
+    domingo.setDate(base.getDate() - base.getDay());
+
+    let html = `<div class="semana-banho">`;
+
+    for(let i = 0; i < 7; i++){
+
+        const d = new Date(domingo);
+        d.setDate(domingo.getDate() + i);
+
+        const ativo =
+            d.getDate() === dataSelecionada.getDate() &&
+            d.getMonth() === dataSelecionada.getMonth() &&
+            d.getFullYear() === dataSelecionada.getFullYear();
+
+        html += `
+            <div class="dia-semana-banho ${ativo ? "ativo" : ""}">
+                <small>${dias[i]}</small>
+                <button onclick="selecionarDataBanho('${d.toISOString()}')">
+                    ${d.getDate()}
+                </button>
+            </div>
+        `;
+    }
+
+    html += `</div>`;
+
+    return html;
+
+}
+
+function selecionarDataBanho(data){
+
+    dataSelecionada = new Date(data);
+
+    diaSelecionado = dataSelecionada.getDate();
+
+    abrirBanhoETosa();
+
+}
+
+
+
+function cardBanho(){
+
+    return `
+
+    <div class="card-banho">
+
+        <div class="faixa-status"></div>
+
+        <img
+            src="img/pet.png"
+            class="foto-pet"
+        >
+
+        <div class="dados-banho">
+
+            <h3>10:00 - Belinha</h3>
+
+            <small>Ranuzia</small>
+
+            <div class="tags">
+
+                <span class="tag dinheiro">
+                    $
+                </span>
+
+                <span class="tag valor">
+                    R$ 59,50
+                </span>
+
+            </div>
+
+            <div class="progresso">
+
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span class="vazio"></span>
+                <span class="vazio"></span>
+
+            </div>
+
+        </div>
+
+        <button class="menu-card">
+
+            <span class="material-symbols-rounded">
+
+                more_vert
+
+            </span>
+
+        </button>
+
+    </div>
+
+    `;
+
+}
+
+function barraBanhoETosa(){
+
+    const meses = [
+        "Janeiro","Fevereiro","Março",
+        "Abril","Maio","Junho",
+        "Julho","Agosto","Setembro",
+        "Outubro","Novembro","Dezembro"
+    ];
+
+    const mes = dataSelecionada.getMonth();
+
+    return `
+
+        <div class="barra-meses">
+
+            <button
+                class="mes-anterior"
+                onclick="mesAnteriorBanhoETosa()">
+
+                ${meses[(mes+11)%12]}
+
+            </button>
+
+            <button class="mes-atual">
+
+                ${meses[mes]}
+
+            </button>
+
+            <button
+                class="mes-proximo"
+                onclick="proximoMesBanhoETosa()">
+
+                ${meses[(mes+1)%12]}
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+function mesAnteriorBanhoETosa(){
+
+    dataSelecionada = new Date(
+        dataSelecionada.getFullYear(),
+        dataSelecionada.getMonth() - 1,
+        1
+    );
+
+    abrirBanhoETosa();
+
+}
+
+function proximoMesBanhoETosa(){
+
+    dataSelecionada = new Date(
+        dataSelecionada.getFullYear(),
+        dataSelecionada.getMonth() + 1,
+        1
+    );
+
+    abrirBanhoETosa();
+
+}
 
 // ======================================================
 // LISTA
@@ -958,13 +1191,13 @@ function listaAgendamentos(){
 
     let html = "";
 
-    agendamentos.forEach((agenda, indice)=>{
+    agendamentos.forEach((agenda)=>{
 
         html += `
 
             <div
                 class="cliente"
-                onclick="abrirAgendamento(${indice})"
+                onclick="abrirAgendamento('${agenda.id}')"
             >
 
                 <div class="avatar">
@@ -1085,7 +1318,10 @@ function telaNovoAgendamento(){
     listaResponsaveis()
 )}
 
-        <div class="botao-servicos">
+        <div
+    class="botao-servicos"
+    onclick="abrirAdicionarServicos()"
+>
 
             <span class="material-symbols-rounded">
                 add_circle
@@ -1125,13 +1361,20 @@ function telaNovoAgendamento(){
 
     <div class="linha-switch">
         <span>Pet Táxi</span>
-        <input type="checkbox" id="petTaxi">
+        <input
+    type="checkbox"
+    id="petTaxi"
+    onchange="calcularTotalAgendamento()"
+>
     </div>
 
     ${campoTexto(
         "Valor do Táxi",
         "valorTaxi",
-        "R$ 0,00"
+        "R$ 0,00",
+        "text",
+        
+        "oninput='calcularTotalAgendamento()'"
     )}
 
     <div class="linha-switch">
@@ -1154,19 +1397,28 @@ function telaNovoAgendamento(){
     ${campoTexto(
         "Serviços",
         "valorServico",
-        "R$ 0,00"
+        "R$ 0,00",
+        "text",
+        
+        "oninput='calcularTotalAgendamento()'"
     )}
 
     ${campoTexto(
         "Desconto",
         "desconto",
-        "0,00"
+        "0,00",
+        "text",
+        
+        "oninput='calcularTotalAgendamento()'"
     )}
 
     ${campoTexto(
         "Adicional",
         "adicional",
-        "R$ 0,00"
+        "R$ 0,00",
+        "text",
+        
+        "oninput='calcularTotalAgendamento()'"
     )}
 
     <div class="total-agendamento">
@@ -1207,6 +1459,49 @@ function telaNovoAgendamento(){
 
 }
 
+function abrirAdicionarServicos(){
+
+    abrirBottomSheet(
+
+        telaAdicionarServicos()
+
+    );
+
+}
+
+function telaAdicionarServicos(){
+
+    return `
+
+        <div class="conteudo-servicos">
+
+            <h2 class="titulo-secao">
+                Adicionar Serviços
+            </h2>
+
+            <div class="caixa-vazia">
+
+                <h3>Em desenvolvimento</h3>
+
+                <p>
+
+                    Aqui serão exibidos os serviços disponíveis.
+
+                </p>
+
+            </div>
+
+            ${botao(
+                "Salvar Serviços",
+                "fecharBottomSheet()"
+            )}
+
+        </div>
+
+    `;
+
+}
+
 function listaResponsaveis(){
 
     const usuarios = JSON.parse(
@@ -1225,24 +1520,23 @@ function listaResponsaveis(){
 
 }
 
-function selecionarCliente(indice){
+function selecionarCliente(id){
 
     const clientes = JSON.parse(
         localStorage.getItem("clientes")
     ) || [];
 
-    const cliente = clientes[indice];
+    const cliente = clientes.find(c => c.id == id);
 
-    document.getElementById("tutorAgenda").value =
-        cliente.nome;
-    
-    document
-    .getElementById("tutorAgenda")
-    .dataset.clienteId = cliente.id;
-    
-    document.getElementById(
-        "listaTutorAgenda"
-    ).style.display = "none";
+    if(!cliente){
+        return;
+    }
+
+    document.getElementById("tutorAgenda").value = cliente.nome;
+
+    document.getElementById("tutorAgenda").dataset.clienteId = cliente.id;
+
+    document.getElementById("listaTutorAgenda").style.display = "none";
 
     carregarPetsTutor(cliente.id);
 
@@ -1307,13 +1601,13 @@ function pesquisarTutor(texto){
         )
     );
 
-    encontrados.forEach((cliente, indice)=>{
+    encontrados.forEach((cliente)=>{
 
         lista.innerHTML += `
 
             <div
                 class="item-autocomplete"
-                onclick="selecionarCliente(${indice})">
+                onclick="selecionarCliente('${cliente.id}')">
 
                 <strong>${cliente.nome}</strong><br>
 
@@ -1373,7 +1667,7 @@ function abrirSelecaoPet(){
         .dataset.clienteId
 );
 
-    if(tutor === ""){
+    if(!tutorId){
 
         alert("Selecione um tutor primeiro.");
 
@@ -1462,14 +1756,25 @@ function selecionarPetAgenda(id){
 // PACOTES
 // ======================================================
 
-function abrirPacotes(){
+function novoPacote(){
+
+    alert("Entrou");
 
     abrirTela(
+        "Novo Pacote",
+        telaNovoPacote()
+    );
 
+}
+
+function abrirPacotes(){
+
+    document.getElementById("botaoFiltro").style.display = "flex";
+    document.getElementById("botaoFiltro").onclick = abrirFiltrosPacotes;
+
+    abrirTela(
         "Pacotes",
-
         telaPacotes()
-
     );
 
 }
@@ -1480,15 +1785,304 @@ function telaPacotes(){
 
         ${campoBusca("Buscar pacote")}
 
-        ${caixaVazia(
-            "Nenhum pacote cadastrado."
-        )}
+        <div id="listaPacotes">
+
+            ${listaPacotes()}
+
+        </div>
+
+        ${botaoNovo("novoPacote")}
 
     `;
 
 }
 
+function telaPacote(pacote){
 
+    return `
+
+        <div class="conteudo-pacote">
+
+            <div class="card-info">
+
+                <h2>Pacote</h2>
+
+                <p>Detalhes em desenvolvimento.</p>
+
+            </div>
+
+            <div class="card-info">
+
+                <h3>Banhos</h3>
+
+                ${caixaVazia("Nenhum banho cadastrado.")}
+
+            </div>
+
+            <div class="card-info">
+
+                <h3>Cliente</h3>
+
+                <p>Em desenvolvimento.</p>
+
+            </div>
+
+            <div class="card-info">
+
+                <h3>Pet</h3>
+
+                <p>Em desenvolvimento.</p>
+
+            </div>
+
+            ${botao("Renovar","")}
+
+        </div>
+
+    `;
+
+}
+
+function listaPacotes(){
+
+    if(pacotes.length === 0){
+
+        return caixaVazia(
+            "Nenhum pacote cadastrado."
+        );
+
+    }
+
+    return pacotes.map(pacote =>
+
+        cardPacote(pacote)
+
+    ).join("");
+
+}
+
+function abrirPacote(id){
+
+    const pacote = pacotes.find(
+        p => p.id == id
+    );
+
+    if(!pacote){
+
+        alert("Pacote não encontrado.");
+
+        return;
+
+    }
+
+    abrirTela(
+        "Pacote",
+        telaPacote(pacote)
+    );
+
+}
+
+function novoPacote(){
+
+    abrirTela(
+
+        "Novo Pacote",
+
+        telaNovoPacote()
+
+    );
+
+}
+
+function telaNovoPacote(){
+
+    return `
+
+    <div class="conteudo-formulario">
+
+        <h2 class="titulo-secao">
+
+            Novo Pacote
+
+        </h2>
+
+        <div class="campo-autocomplete">
+
+            <label>Tutor</label>
+
+            <input
+                id="tutorPacote"
+                type="text"
+                placeholder="Digite o nome do tutor..."
+                autocomplete="off"
+                oninput="pesquisarTutorPacote(this.value)"
+            >
+
+            <div
+                id="listaTutorPacote"
+                class="lista-autocomplete">
+            </div>
+
+        </div>
+
+        <div
+            class="campo-selecao"
+            onclick="abrirSelecaoPetPacote()">
+
+            <label>Pet</label>
+
+            <input
+                id="petPacote"
+                type="text"
+                placeholder="Selecione um pet"
+                readonly
+            >
+
+        </div>
+
+        ${campoSelect(
+            "Responsável",
+            "responsavelPacote",
+            listaResponsaveis()
+        )}
+
+        <div
+            class="botao-servicos"
+            onclick="abrirAdicionarServicosPacote()">
+
+            <span class="material-symbols-rounded">
+                add_circle
+            </span>
+
+            Adicionar Serviço
+
+        </div>
+
+        ${campoData(
+            "Data do primeiro banho",
+            "dataPacote"
+        )}
+
+        ${campoTexto(
+            "Hora",
+            "horaPacote",
+            "09:00"
+        )}
+
+        ${campoTexto(
+            "Duração",
+            "duracaoPacote",
+            "00:30"
+        )}
+
+        ${campoTexto(
+            "Número de sessões",
+            "totalSessoes",
+            "4"
+        )}
+
+        ${campoSelect(
+            "Intervalo",
+            "intervaloPacote",
+            [
+                "Semanal",
+                "Quinzenal",
+                "Mensal"
+            ]
+        )}
+
+        ${botao(
+            "Salvar",
+            "salvarPacote()"
+        )}
+
+    </div>
+
+    `;
+
+}
+
+function salvarPacote(){
+
+    const pacote = {
+
+        id: Date.now(),
+
+        tutor: document.getElementById("tutorPacote").value,
+
+        pet: document.getElementById("petPacote").value,
+
+        responsavel: document.getElementById("responsavelPacote").value,
+
+        data: document.getElementById("dataPacote").value,
+
+        hora: document.getElementById("horaPacote").value,
+
+        duracao: document.getElementById("duracaoPacote").value,
+
+        totalSessoes: Number(
+            document.getElementById("totalSessoes").value
+        ),
+
+        sessoesUsadas: 0,
+
+        intervalo: document.getElementById("intervaloPacote").value,
+
+        status: "Ativo",
+
+        criadoEm: new Date().toISOString()
+
+    };
+
+    pacotes.push(pacote);
+
+    localStorage.setItem(
+        "pacotes",
+        JSON.stringify(pacotes)
+    );
+
+    alert("Pacote salvo com sucesso!");
+
+    abrirPacotes();
+
+}
+
+function abrirFiltrosPacotes(){
+
+    abrirBottomSheet(`
+        <h2>Filtros</h2>
+        Em desenvolvimento.
+    `);
+
+}
+
+function cardPacote(pacote){
+
+    return `
+
+        <div
+            class="card-pacote"
+            onclick="abrirPacote(${pacote.id})">
+
+            <h3>${pacote.pet}</h3>
+
+            <small>${pacote.tutor}</small>
+
+            <p>
+
+                ${pacote.intervalo}
+
+                •
+
+                ${pacote.sessoesUsadas}/${pacote.totalSessoes}
+
+            </p>
+
+        </div>
+
+    `;
+
+}
 
 // ======================================================
 // CHECKLIST
@@ -1546,6 +2140,48 @@ function telaChecklist(){
 // SALVAR AGENDAMENTO
 // ======================================================
 
+function calcularTotalAgendamento(){
+
+    const servicos =
+        parseFloat(
+            document.getElementById("valorServico").value
+            .replace("R$","")
+            .replace(",",".")
+        ) || 0;
+
+    const taxi =
+        parseFloat(
+            document.getElementById("valorTaxi").value
+            .replace("R$","")
+            .replace(",",".")
+        ) || 0;
+
+    const desconto =
+        parseFloat(
+            document.getElementById("desconto").value
+            .replace(",",".")
+        ) || 0;
+
+    const adicional =
+        parseFloat(
+            document.getElementById("adicional").value
+            .replace("R$","")
+            .replace(",",".")
+        ) || 0;
+
+    let total = servicos + adicional - desconto;
+
+    if(document.getElementById("petTaxi").checked){
+
+        total += taxi;
+
+    }
+
+    document.getElementById("valorTotal").innerText =
+        "R$ " + total.toFixed(2).replace(".",",");
+
+}
+
 function salvarAgendamento(){
 
     const agendamento={
@@ -1562,7 +2198,7 @@ function salvarAgendamento(){
         
         responsavel:document.getElementById("responsavelAgenda").value,
 
-        servico:document.getElementById("servicoAgenda").value,
+        servico: document.getElementById("valorServico").value,
 
         observacoes:document
             .getElementById("observacoesAgenda")
@@ -1596,9 +2232,9 @@ function salvarAgendamento(){
 // FICHA DO AGENDAMENTO
 // ======================================================
 
-function abrirAgendamento(indice){
+function abrirAgendamento(id){
 
-    const agenda=agendamentos[indice];
+    const agenda = agendamentos.find(a => a.id == id);
 
     if(!agenda){
 
