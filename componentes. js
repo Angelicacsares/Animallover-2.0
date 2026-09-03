@@ -443,7 +443,7 @@ function cardSelecionarTutor(id, nome){
 
         <div
             class="cliente"
-            onclick="abrirNovoPet(${id})"
+            onclick="abrirNovoPet('${id}')"
         >
 
             <div class="avatar">
@@ -594,7 +594,10 @@ function abrirBottomSheet(conteudo){
                 onclick="event.stopPropagation()"
             >
 
-                <div class="barra-sheet"></div>
+                <div
+    class="barra-sheet"
+    id="barraSheet"
+></div>
 
                 ${conteudo}
 
@@ -605,6 +608,37 @@ function abrirBottomSheet(conteudo){
         `
 
     );
+
+const sheet = document.querySelector(".bottom-sheet");
+const barra = document.getElementById("barraSheet");
+
+let inicioY = 0;
+let altura = 70; // começa ocupando 70% da tela
+
+barra.addEventListener("touchstart", function(e){
+
+    inicioY = e.touches[0].clientY;
+
+});
+
+barra.addEventListener("touchmove", function(e){
+
+    const atual = e.touches[0].clientY;
+
+    const diferenca = inicioY - atual;
+
+    if(Math.abs(diferenca) < 20) return;
+
+    altura += diferenca / 15;
+
+    if(altura < 45) altura = 45;
+    if(altura > 95) altura = 95;
+
+    sheet.style.maxHeight = altura + "vh";
+
+    inicioY = atual;
+
+});
 
 }
 
