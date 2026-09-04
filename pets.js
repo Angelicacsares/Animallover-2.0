@@ -247,8 +247,6 @@ function telaSelecionarTutor(){
 
 function abrirNovoPet(idTutor){
 
-    alert("ID recebido: " + idTutor);
-
     abrirTela(
         "Novo Pet",
         telaNovoPet(idTutor)
@@ -260,9 +258,6 @@ function abrirNovoPet(idTutor){
 
 
 function telaNovoPet(idTutor){
-
-    console.log(clientes);
-alert(JSON.stringify(clientes));
 
     const tutor = clientes.find(
     cliente => cliente.id == idTutor
