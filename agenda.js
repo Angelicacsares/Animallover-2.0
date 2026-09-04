@@ -1708,7 +1708,6 @@ function abrirSelecaoPet(){
     }
 
     abrirBottomSheet(
-        "Selecionar Pet",
         listaPetsAgenda(lista)
     );
 
@@ -1746,7 +1745,10 @@ function selecionarPetAgenda(id){
         return;
     }
 
-    document.getElementById("petAgenda").value = pet.nome;
+    const campoPet = document.getElementById("petAgenda");
+
+    campoPet.value = pet.nome;
+    campoPet.dataset.petId = pet.id;
 
     fecharBottomSheet();
 
@@ -1755,17 +1757,6 @@ function selecionarPetAgenda(id){
 // ======================================================
 // PACOTES
 // ======================================================
-
-function novoPacote(){
-
-    alert("Entrou");
-
-    abrirTela(
-        "Novo Pacote",
-        telaNovoPacote()
-    );
-
-}
 
 function abrirPacotes(){
 
